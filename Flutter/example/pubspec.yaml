@@ -11,8 +11,9 @@ dependencies:
     sdk: flutter
   dokit:
     path: ..
-  dio: 4.0.0
-  path_provider: ^2.0.1
+  dio: 4.0.6
+  path_provider: ^2.0.9
+  platform: ^3.1.0
 
 dev_dependencies:
   flutter_test:

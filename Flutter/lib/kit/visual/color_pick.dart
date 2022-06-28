@@ -158,7 +158,7 @@ class ColorPickerWidgetState extends State<ColorPickerWidget> {
   @override
   initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // 第一次内部会调用_updateImage方法
       _updateColor();
     });

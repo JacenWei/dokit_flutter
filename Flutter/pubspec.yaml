@@ -5,24 +5,24 @@ homepage: https://www.dokit.cn/#/index/home
 
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
   flutter: ">=2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  date_format: ^2.0.2
-  vm_service: ^6.2.0
-  package_info: ^2.0.0
-  shared_preferences: ^2.0.5
-  image: ^3.0.2
-  google_fonts: ^2.0.0
-  string_scanner: ^1.0.5
+  date_format: ^2.0.6
+  vm_service: ^9.0.0
+  package_info: ^2.0.2
+  shared_preferences: ^2.0.15
+  image: ^3.2.0
+  google_fonts: ^3.0.1
+  string_scanner: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.9.2
+  pedantic: ^1.11.1
 
 
 flutter:

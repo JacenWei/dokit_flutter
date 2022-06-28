@@ -1,14 +1,10 @@
-import 'dart:ui';
-
 import 'package:dokit/dokit.dart';
 import 'package:dokit/kit/apm/apm.dart';
 import 'package:dokit/kit/kit.dart';
 import 'package:dokit/util/time_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ChannelInfo implements IInfo {
   static const int TYPE_USER_SEND = 0;
@@ -30,7 +26,7 @@ class ChannelInfo implements IInfo {
   MessageCodec? messageCodec;
 
   ChannelInfo(this.channelName, this.method, this.arguments, this.type)
-      : this.startTimestamp = DateTime.now().millisecondsSinceEpoch;
+      : startTimestamp = DateTime.now().millisecondsSinceEpoch;
 
   @override
   String getValue() {
@@ -41,10 +37,10 @@ class ChannelInfo implements IInfo {
                 : type == TYPE_SYSTEM_SEND
                     ? 'dart端调用方法[系统]\n'
                     : 'native端调用方法[系统]\n') +
-        'channelName:${channelName}\n' +
-        'method:${method}\n' +
-        'arguments:${arguments}\n' +
-        'results:${results}';
+        'channelName:$channelName\n' +
+        'method:$method\n' +
+        'arguments:$arguments\n' +
+        'results:$results';
   }
 
   factory ChannelInfo.error(String channelName, int type) {
@@ -83,7 +79,7 @@ class MethodChannelKit extends ApmKit {
       super.save(info);
       return false;
     }
-    bool result = super.save(info);
+    var result = super.save(info);
     ApmKitManager.instance
         .getKit<MethodChannelKit>(ApmKitName.KIT_CHANNEL)
         ?.listener
@@ -102,7 +98,7 @@ class MethodChannelKit extends ApmKit {
   }
 
   void unregisterListener() {
-    this.listener = null;
+    listener = null;
   }
 }
 
@@ -115,13 +111,13 @@ class ChannelPage extends StatefulWidget {
 
 class ChannelPageState extends State<ChannelPage> {
   // 定义ListView的controller
-  ScrollController _offsetController = ScrollController();
+  final ScrollController _offsetController = ScrollController();
   static bool showSystemChannel = false;
 
   Future<void> _listener() async {
     if (!mounted) return;
-    if (SchedulerBinding.instance?.schedulerPhase != SchedulerPhase.idle) {
-      await SchedulerBinding.instance?.endOfFrame;
+    if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.idle) {
+      await SchedulerBinding.instance.endOfFrame;
       if (!mounted) return;
     }
     setState(() {
@@ -151,7 +147,7 @@ class ChannelPageState extends State<ChannelPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<IInfo>? items = ApmKitManager.instance
+    var items = ApmKitManager.instance
         .getKit<MethodChannelKit>(ApmKitName.KIT_CHANNEL)
         ?.getStorage()
         .getAll()
@@ -172,7 +168,7 @@ class ChannelPageState extends State<ChannelPage> {
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    this.setState(() {
+                    setState(() {
                       showSystemChannel = !showSystemChannel;
                     });
                   },
@@ -192,7 +188,7 @@ class ChannelPageState extends State<ChannelPage> {
                 GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
-                      this.setState(() {
+                      setState(() {
                         showSystemChannel = !showSystemChannel;
                       });
                     },
@@ -205,7 +201,7 @@ class ChannelPageState extends State<ChannelPage> {
                 GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () {
-                      this.setState(() {
+                      setState(() {
                         ApmKitManager.instance
                             .getKit<MethodChannelKit>(ApmKitName.KIT_CHANNEL)
                             ?.getStorage()
@@ -333,11 +329,6 @@ class _ChannelItemWidgetState extends State<ChannelItemWidget> {
                               height: 1.2)),
                       WidgetSpan(
                           child: Container(
-                              child: Text('${getChannelType()}',
-                                  style: TextStyle(
-                                      fontSize: 8,
-                                      color: Color(0xffffffff),
-                                      height: 1.2)),
                               height: 11,
                               margin: EdgeInsets.only(left: 4),
                               padding: EdgeInsets.only(left: 6, right: 6),
@@ -346,7 +337,12 @@ class _ChannelItemWidgetState extends State<ChannelItemWidget> {
                                       BorderRadius.all(Radius.circular(2)),
                                   color: (widget.item.type % 2 != 0
                                       ? Color(0xffd0607e)
-                                      : Color(0xff337cc4))))),
+                                      : Color(0xff337cc4))),
+                              child: Text('${getChannelType()}',
+                                  style: TextStyle(
+                                      fontSize: 8,
+                                      color: Color(0xffffffff),
+                                      height: 1.2)))),
                       TextSpan(
                           text:
                               '  Cost:${widget.item.endTimestamp > 0 ? ((widget.item.endTimestamp - widget.item.startTimestamp).toString() + 'ms') : '-'} ',

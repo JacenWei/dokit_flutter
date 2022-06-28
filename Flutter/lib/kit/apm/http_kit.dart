@@ -141,8 +141,8 @@ class HttpPageState extends State<HttpPage> {
     if (!mounted) {
       return;
     }
-    if (SchedulerBinding.instance?.schedulerPhase != SchedulerPhase.idle) {
-      await SchedulerBinding.instance?.endOfFrame;
+    if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.idle) {
+      await SchedulerBinding.instance.endOfFrame;
       if (!mounted) {
         return;
       }

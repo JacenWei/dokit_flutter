@@ -75,7 +75,7 @@ class DoKit {
     if (useRunZoned != true) {
       var f = () async => <void>{
             _ensureDoKitBinding(useInRelease: useInRelease),
-            _runWrapperApp(app != null ? app : await appCreator!()),
+            _runWrapperApp(app ?? await appCreator!()),
             _zone = Zone.current
           };
       await f();
@@ -84,7 +84,7 @@ class DoKit {
     await runZonedGuarded(
       () async => <void>{
         _ensureDoKitBinding(useInRelease: useInRelease),
-        _runWrapperApp(app != null ? app : await appCreator!()),
+        _runWrapperApp(app ?? await appCreator!()),
         _zone = Zone.current
       },
       (Object obj, StackTrace stack) {
@@ -209,8 +209,8 @@ void _collectError(Object? details, Object? stack) {
 }
 
 void addEntrance() {
-  WidgetsBinding.instance?.addPostFrameCallback((_) {
-    final DoKitBtn floatBtn = DoKitBtn();
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    final floatBtn = DoKitBtn();
     floatBtn.addToOverlay();
     floatBtn.btnClickCallback = DoKit.i.callback;
     KitPageManager.instance.loadCache();

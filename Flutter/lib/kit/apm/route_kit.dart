@@ -45,7 +45,7 @@ class RouteInfoPageState extends State<RouteInfoPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((Duration timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       final RouteInfo? route = findRoute();
       if (route != null && (route.current != null)) {
         setState(() {

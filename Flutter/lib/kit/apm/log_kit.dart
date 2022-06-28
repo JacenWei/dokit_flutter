@@ -111,8 +111,8 @@ class LogManager {
 
   void addLog(int type, String msg) {
     if (ApmKitManager.instance.getKit(ApmKitName.KIT_LOG) != null) {
-      final LogBean log = LogBean(type, msg);
-      final LogKit? kit = ApmKitManager.instance.getKit(ApmKitName.KIT_LOG);
+      final log = LogBean(type, msg);
+      final kit = ApmKitManager.instance.getKit(ApmKitName.KIT_LOG);
       kit?.save(log);
       if (type != LogBean.TYPE_ERROR || LogPageState._showError) {
         listener?.call(log);
@@ -165,9 +165,9 @@ class LogPageState extends State<LogPage> {
       return Future<void>.value();
     }
     // if there's a current frame,
-    if (SchedulerBinding.instance?.schedulerPhase != SchedulerPhase.idle) {
+    if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.idle) {
       // wait for the end of that frame.
-      await SchedulerBinding.instance?.endOfFrame;
+      await SchedulerBinding.instance.endOfFrame;
       if (!mounted) {
         return Future<void>.value();
       }
@@ -196,7 +196,7 @@ class LogPageState extends State<LogPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<IInfo> items = (LogPageState._showError
+    final items = (LogPageState._showError
             ? LogManager.instance.getErrors()?.reversed.toList()
             : LogManager.instance.getLogs()?.reversed.toList()) ??
         [];

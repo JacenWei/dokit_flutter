@@ -56,7 +56,7 @@ class _SourceCodePageState extends State<SourceCodePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var renderObject = findTopRenderObject();
       if (renderObject == null) {
         return;

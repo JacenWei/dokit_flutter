@@ -4,7 +4,6 @@ import 'package:dokit/dokit.dart';
 import 'package:dokit/kit/apm/apm.dart';
 import 'package:dokit/kit/kit.dart';
 import 'package:dokit/widget/fps_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FpsInfo implements IInfo {
@@ -27,7 +26,7 @@ class FpsKit extends ApmKit {
 
   @override
   void start() {
-    WidgetsBinding.instance?.addTimingsCallback((timings) {
+    WidgetsBinding.instance.addTimingsCallback((timings) {
       int fps = 0;
       timings.forEach((element) {
         FrameTiming frameTiming = element;

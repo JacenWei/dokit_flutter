@@ -31,7 +31,7 @@ class _KitPage extends State<KitPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
 
     return SingleChildScrollView(
         child: Container(

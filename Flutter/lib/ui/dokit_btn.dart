@@ -1,6 +1,5 @@
 import 'package:dokit/dokit.dart';
 import 'package:dokit/kit/apm/apm.dart';
-import 'package:dokit/ui/dokit_app.dart';
 import 'package:dokit/ui/resident_page.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +26,7 @@ class DoKitBtn extends StatefulWidget {
     overlayEntry = OverlayEntry(builder: (BuildContext context) {
       return this;
     });
-    final OverlayState? rootOverlay = doKitOverlayKey.currentState;
+    final rootOverlay = doKitOverlayKey.currentState;
     assert(rootOverlay != null);
     rootOverlay?.insert(overlayEntry!);
     ApmKitManager.instance.startUp();
@@ -50,19 +49,6 @@ class DoKitBtnState extends State<DoKitBtn> {
         right: offsetA == null ? 20 : null,
         bottom: offsetA == null ? 120 : null,
         child: Draggable(
-            child: Container(
-              width: 70,
-              height: 70,
-              alignment: Alignment.center,
-              child: TextButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
-                ),
-                child: Image.asset('images/dokit_flutter_btn.png',
-                    package: DK_PACKAGE_NAME, height: 70, width: 70),
-                onPressed: openDebugPage,
-              ),
-            ),
             feedback: Container(
               width: 70,
               height: 70,
@@ -71,20 +57,20 @@ class DoKitBtnState extends State<DoKitBtn> {
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(EdgeInsets.all(0)),
                 ),
+                onPressed: openDebugPage,
                 child: Image.asset('images/dokit_flutter_btn.png',
                     package: DK_PACKAGE_NAME, height: 70, width: 70),
-                onPressed: openDebugPage,
               ),
             ),
             childWhenDragging: Container(),
             onDragEnd: (DraggableDetails detail) {
-              final Offset offset = detail.offset;
+              final offset = detail.offset;
               setState(() {
-                final Size size = MediaQuery.of(context).size;
-                final double width = size.width;
-                final double height = size.height;
-                double x = offset.dx;
-                double y = offset.dy;
+                final size = MediaQuery.of(context).size;
+                final width = size.width;
+                final height = size.height;
+                var x = offset.dx;
+                var y = offset.dy;
                 if (x < 0) {
                   x = 0;
                 }
@@ -100,7 +86,20 @@ class DoKitBtnState extends State<DoKitBtn> {
                 offsetA = Offset(x, y);
               });
             },
-            onDraggableCanceled: (Velocity velocity, Offset offset) {}));
+            onDraggableCanceled: (Velocity velocity, Offset offset) {},
+            child: Container(
+              width: 70,
+              height: 70,
+              alignment: Alignment.center,
+              child: TextButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
+                ),
+                onPressed: openDebugPage,
+                child: Image.asset('images/dokit_flutter_btn.png',
+                    package: DK_PACKAGE_NAME, height: 70, width: 70),
+              ),
+            )));
   }
 
   void openDebugPage() {

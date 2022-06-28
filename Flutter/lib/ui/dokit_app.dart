@@ -49,7 +49,7 @@ class _DoKitWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     if (_origin is StatelessWidget) {
       debugPrint(_origin.toStringShort());
-      Widget widget = (_origin as StatelessWidget).build(context);
+      var widget = (_origin as StatelessWidget).build(context);
       debugPrint(widget.toStringShort());
       if (widget is MaterialApp) {
         final navigatorObservers = widget.navigatorObservers;
@@ -135,7 +135,7 @@ class _MediaQueryFromWindowsState extends State<_MediaQueryFromWindow>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   // ACCESSIBILITY
@@ -180,14 +180,14 @@ class _MediaQueryFromWindowsState extends State<_MediaQueryFromWindow>
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQueryData.fromWindow(WidgetsBinding.instance!.window),
+      data: MediaQueryData.fromWindow(WidgetsBinding.instance.window),
       child: widget.child,
     );
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
