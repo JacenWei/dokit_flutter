@@ -47,7 +47,7 @@ class VMServiceWrapper {
       _extensionService = ExtensionService(service!, main!);
       await _extensionService?.loadExtensionService();
     }
-    return _extensionService!.callMethod(method);
+    return _extensionService?.callMethod(method);
   }
 
   gc() {
