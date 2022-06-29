@@ -54,7 +54,7 @@ class DoKit {
       List<String> methodChannelBlackList = const <String>[],
       Function? releaseAction}) async {
     // 统计用户信息，便于了解该开源产品的使用量 (请大家放心，我们不用于任何恶意行为)
-    upLoadUserInfo();
+    // upLoadUserInfo();
 
     assert(
         app != null || appCreator != null, 'app and appCreator are both null');
